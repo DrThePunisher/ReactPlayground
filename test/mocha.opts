@@ -1,0 +1,5 @@
+--require ts-node/register
+--require ./src/setupTests.ts
+--require ./src/setupJsdomForTests.js
+--require ignore-styles
+--require choma

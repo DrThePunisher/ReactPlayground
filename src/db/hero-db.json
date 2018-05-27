@@ -1,0 +1,16 @@
+{
+    "heroes": [
+        {
+            "id": 0,
+            "name": "Dekar",
+            "race": "Human",
+            "class": "Fighter",
+            "level": 4
+        },
+        {
+            "id": 1,
+            "name": "Sabin",
+            "race": "Human"
+        }
+    ]
+}
