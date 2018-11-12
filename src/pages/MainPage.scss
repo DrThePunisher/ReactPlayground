@@ -1,0 +1,11 @@
+.MainPage {
+    .MainPage-players-header {
+        font-size: 1.5rem;
+        margin-bottom: 24px;
+    }
+
+    .MainPage-players-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

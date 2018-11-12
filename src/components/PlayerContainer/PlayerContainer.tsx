@@ -1,22 +1,22 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { HeroApi } from '../../apis/HeroApi';
-import { Hero } from '../HeroCard/HeroCard';
+import { PlayerApi } from '../../apis/PlayerApi';
+import { Player } from "../../entities/Player";
 
 interface Props {
-    heroApi: HeroApi;
-    render: (heroes: Hero[]) => {};
+    playerApi: PlayerApi;
+    render: (players: Player[]) => {};
 }
 
 interface State {
     loadingFailed: boolean;
-    heroes?: Hero[];
+    players?: Player[];
 }
 
-export class HeroContainer extends React.Component<Props, State> {
+export class PlayerContainer extends React.Component<Props, State> {
     static propTypes = {
-        heroApi: PropTypes.object.isRequired,
+        playerApi: PropTypes.object.isRequired,
         render: PropTypes.func.isRequired
     };
 
@@ -28,19 +28,19 @@ export class HeroContainer extends React.Component<Props, State> {
     }
 
     componentWillMount() {
-        this.props.heroApi.getHeroes().then(
-            (heroes) => {
-                this.setState({ heroes });
+        this.props.playerApi.getAllPlayers().then(
+            (players) => {
+                this.setState({ players });
             },
-            (error) => {
+            () => {
                 this.setState({ loadingFailed: true });
             }
         );
     }
 
     render() {
-        if (this.state.heroes) {
-            return this.props.render(this.state.heroes);
+        if (this.state.players) {
+            return this.props.render(this.state.players);
         }
         if (this.state.loadingFailed) {
             return <div>Loading failed.</div>;

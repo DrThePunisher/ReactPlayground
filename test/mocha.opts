@@ -3,3 +3,4 @@
 --require ./src/setupJsdomForTests.js
 --require ignore-styles
 --require choma
+--reporter nyan

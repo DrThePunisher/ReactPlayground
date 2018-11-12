@@ -1,0 +1,49 @@
+{
+    "players": [
+        {
+            "id": 0,
+            "firstName": "Kevin",
+            "lastName": "Claus",
+            "nickName": null,
+            "gender": "M"
+        },
+        {
+            "id": 1,
+            "firstName": "Shannon",
+            "lastName": "Bradley",
+            "nickName": null,
+            "gender": "F"
+        },
+        {
+            "id": 2,
+            "firstName": "Jason",
+            "lastName": "Wilkinson",
+            "nickName": "Wilk",
+            "gender": "M"
+        }
+    ],
+    "teams": [
+        {
+            "id": 0,
+            "name": "Dumpster Fire",
+            "captainIds": [
+                0
+            ],
+            "playerIds": [
+                0,
+                1
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Goobers",
+            "captainIds": [
+                2
+            ],
+            "playerIds": [
+                1,
+                2
+            ]
+        }
+    ]
+}

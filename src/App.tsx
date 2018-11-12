@@ -2,32 +2,19 @@ import './App.css';
 
 import * as React from 'react';
 
-import { HeroApiClient } from './apis/HeroApi';
-import { Hero, HeroCard } from './components/HeroCard/HeroCard';
-import { HeroContainer } from './components/HeroContainer/HeroContainer';
+import { PlayerApiClient } from './apis/PlayerApi';
+import { MainPage } from './pages/MainPage';
 
 class App extends React.Component {
     public render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">React Playground</h1>
-                </header>
-                <div className="App-heroCollection">
-                    <HeroContainer
-                        heroApi={new HeroApiClient()}
-                        render={
-                            (heroes: Hero[]) => {
-                                return heroes.map((hero: Hero) => (<HeroCard
-                                    key={hero.id}
-                                    name={hero.name}
-                                    race={hero.race}
-                                    class={hero.class}
-                                    level={hero.level}
-                                />)
-                                );
-                            }
-                        }
+                <div className="App-header">
+                    <h1 className="App-title">New Ultimate Site</h1>
+                </div>
+                <div className="App-content">
+                    <MainPage 
+                        playerApi={new PlayerApiClient()}
                     />
                 </div>
             </div>
