@@ -11,7 +11,7 @@ export const TeamShape = PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     captainIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-    ncaptainIdsame: PropTypes.arrayOf(PropTypes.number).isRequired,
+    playerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
 });
 
 export function arbitraryTeam(): Team {
