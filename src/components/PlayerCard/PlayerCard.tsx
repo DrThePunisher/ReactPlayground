@@ -2,6 +2,7 @@ import './PlayerCard.css';
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+
 import { Player, PlayerShape } from '../../entities/Player';
 
 interface Props {

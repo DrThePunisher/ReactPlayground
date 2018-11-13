@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import * as sinon from 'sinon';
 
-import { arbitraryPlayer, Player, PlayerCard } from './PlayerCard';
-
+import { arbitraryPlayer, Player } from '../../entities/Player';
+import { PlayerCard } from './PlayerCard';
 
 describe('PlayerCard', () => {
     it('should render a first name', () => {

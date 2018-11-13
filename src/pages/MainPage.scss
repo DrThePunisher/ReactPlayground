@@ -1,10 +1,12 @@
 .MainPage {
-    .MainPage-players-header {
+    .MainPage-players-header,
+    .MainPage-teams-header {
         font-size: 1.5rem;
         margin-bottom: 24px;
     }
 
-    .MainPage-players-list {
+    .MainPage-players-list,
+    .MainPage-teams-list {
         display: flex;
         flex-wrap: wrap;
     }

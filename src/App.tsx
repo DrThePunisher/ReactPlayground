@@ -3,6 +3,7 @@ import './App.css';
 import * as React from 'react';
 
 import { PlayerApiClient } from './apis/PlayerApi';
+import { TeamApiClient } from './apis/TeamApi';
 import { MainPage } from './pages/MainPage';
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
                 <div className="App-content">
                     <MainPage 
                         playerApi={new PlayerApiClient()}
+                        teamApi={new TeamApiClient()}
                     />
                 </div>
             </div>

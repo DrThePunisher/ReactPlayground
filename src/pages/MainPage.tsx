@@ -4,12 +4,17 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { PlayerApi } from '../apis/PlayerApi';
+import { TeamApi } from '../apis/TeamApi';
+import { AllPlayersContainer } from '../components/AllPlayersContainer/AllPlayersContainer';
+import { AllTeamsContainer } from '../components/AllTeamsContainer/AllTeamsContainer';
 import { PlayerCard } from '../components/PlayerCard/PlayerCard';
-import { PlayerContainer } from '../components/PlayerContainer/PlayerContainer';
+import { TeamCard } from '../components/TeamCard/TeamCard';
 import { Player } from '../entities/Player';
+import { Team } from '../entities/Team';
 
 interface Props {
     playerApi: PlayerApi;
+    teamApi: TeamApi;
 }
 
 const MainPage: React.SFC<Props> = (props) => {
@@ -20,7 +25,7 @@ const MainPage: React.SFC<Props> = (props) => {
                     All Players
                 </div>
                 <div className="MainPage-players-list">
-                    <PlayerContainer
+                    <AllPlayersContainer
                         playerApi={props.playerApi}
                         render={
                             (players: Player[]) => {
@@ -35,12 +40,34 @@ const MainPage: React.SFC<Props> = (props) => {
                     />
                 </div>
             </div>
+            <div className="MainPage-teams">
+                <div className="MainPage-teams-header">
+                    All Teams
+                </div>
+                <div className="MainPage-teams-list">
+                    <AllTeamsContainer
+                        teamApi={props.teamApi}
+                        render={
+                            (teams: Team[]) => {
+                                return teams.map((team: Team) => (
+                                    <TeamCard
+                                        key={team.id}
+                                        team={team}
+                                    />
+                                ));
+                            }
+                        }
+                    />
+                </div>
+            </div>
         </div>
     );
 };
 
 MainPage.propTypes = {
     playerApi: PropTypes.object.isRequired,
+    teamApi: PropTypes.object.isRequired,
 };
 
 export { MainPage };
+

@@ -3,10 +3,15 @@ import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 
 import { PlayerApi, stubPlayerApi } from '../apis/PlayerApi';
+import { stubTeamApi, TeamApi } from '../apis/TeamApi';
+import { AllPlayersContainer } from '../components/AllPlayersContainer/AllPlayersContainer';
+import { AllTeamsContainer } from '../components/AllTeamsContainer/AllTeamsContainer';
 import { PlayerCard } from '../components/PlayerCard/PlayerCard';
-import { PlayerContainer } from '../components/PlayerContainer/PlayerContainer';
+import { TeamCard } from '../components/TeamCard/TeamCard';
 import { arbitraryPlayer } from '../entities/Player';
+import { arbitraryTeam } from '../entities/Team';
 import { MainPage } from './MainPage';
+
 
 describe('MainPage', () => {
     describe('Players', () => {
@@ -19,7 +24,7 @@ describe('MainPage', () => {
         it('renders a list of all players', () => {
             const subject = shallowRender({});
 
-            expect(subject.find(PlayerContainer)).to.be.present();
+            expect(subject.find(AllPlayersContainer)).to.be.present();
         });
 
         it('renders a PlayerCard for each player', async () => {
@@ -51,10 +56,54 @@ describe('MainPage', () => {
             });
         });
     });
+
+    describe('Teams', () => {
+        it('renders a header for all teams', () => {
+            const subject = shallowRender({});
+
+            expect(subject.find('.MainPage-teams-header').text()).to.equal('All Teams');
+        });
+
+        it('renders a list of all teams', () => {
+            const subject = shallowRender({});
+
+            expect(subject.find(AllTeamsContainer)).to.be.present();
+        });
+
+        it('renders a TeamCard for each team', async () => {
+            const getAllTeamsPromise = Promise.resolve([{
+                ...arbitraryTeam(),
+                id: 44,
+            },
+            {
+                ...arbitraryTeam(),
+                id: 27,
+            }]);
+            const teamApi = {
+                ...stubTeamApi(),
+                getAllTeams: () => getAllTeamsPromise,
+            };
+            const subject = mountRender({ teamApi });
+            await getAllTeamsPromise;
+            subject.update();
+
+            const teamCards = subject.find(TeamCard);
+            expect(teamCards.length).to.equal(2);
+            expect(teamCards.at(0).prop('team')).to.deep.equal({
+                ...arbitraryTeam(),
+                id: 44,
+            });
+            expect(teamCards.at(1).prop('team')).to.deep.equal({
+                ...arbitraryTeam(),
+                id: 27,
+            });
+        });
+    });
 });
 
 interface OptionalProps {
     playerApi?: PlayerApi;
+    teamApi?: TeamApi;
 }
 
 function shallowRender(props: OptionalProps) {
@@ -71,6 +120,7 @@ function mountRender(props: OptionalProps) {
 
 function makeProps(props: OptionalProps) {
     return {
-        playerApi: props.playerApi || stubPlayerApi()
+        playerApi: props.playerApi || stubPlayerApi(),
+        teamApi: props.teamApi || stubTeamApi(),
     };
 }

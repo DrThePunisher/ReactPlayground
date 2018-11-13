@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance } from 'axios';
 
-import { Player } from "../entities/Player";
+import { dummyPromise } from '../entities/dummyPromise';
+import { Player } from '../entities/Player';
 
 export interface PlayerApi {
     getPlayer(id: number): Promise<Player>;
@@ -28,10 +29,6 @@ export class PlayerApiClient implements PlayerApi {
 export function stubPlayerApi(): PlayerApi {
     return {
         getPlayer: () => dummyPromise<Player>(),
-        getAllPlayers: () => dummyPromise<Player[]>()
+        getAllPlayers: () => dummyPromise<Player[]>(),
     };
-}
-
-export function dummyPromise<T>(): Promise<T> {
-    return new Promise(() => {});
 }

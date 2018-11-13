@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import * as sinon from 'sinon';
 
-import { dummyPromise, PlayerApi, stubPlayerApi } from '../../apis/PlayerApi';
-import { arbitraryPlayer, Player } from '../PlayerCard/PlayerCard';
-import { PlayerContainer } from './PlayerContainer';
-
+import { PlayerApi, stubPlayerApi } from '../../apis/PlayerApi';
+import { dummyPromise } from '../../entities/dummyPromise';
+import { arbitraryPlayer, Player } from '../../entities/Player';
+import { AllPlayersContainer } from '../AllPlayersContainer/AllPlayersContainer';
 
 describe('PlayerContainer', () => {
     it('should should a loading message', () => {
@@ -40,7 +40,7 @@ describe('PlayerContainer', () => {
     });
 
     it('should call the playerApi upon load', () => {
-        const getAllPlayers = sinon.stub().returns(dummyPromise());
+        const getAllPlayers = sinon.stub().returns(dummyPromise<Player[]>());
         const playerApi = {
             ...stubPlayerApi(),
             getAllPlayers
@@ -53,18 +53,18 @@ describe('PlayerContainer', () => {
 
 interface OptionalProps {
     playerApi?: PlayerApi;
-    render?: (Playeres: Player[]) => {};
+    render?: (players: Player[]) => {};
 }
 
 function shallowRender(props: OptionalProps) {
     return shallow(
-        <PlayerContainer {...makeProps(props)} />
+        <AllPlayersContainer {...makeProps(props)} />
     );
 }
 
 function makeProps(props: OptionalProps) {
     return {
         playerApi: props.playerApi || stubPlayerApi(),
-        render: props.render || ((Playeres: Player[]) => <div />)
+        render: props.render || ((players: Player[]) => <div />)
     };
 }

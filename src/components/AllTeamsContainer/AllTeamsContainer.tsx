@@ -1,22 +1,22 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { PlayerApi } from '../../apis/PlayerApi';
-import { Player } from "../../entities/Player";
+import { TeamApi } from '../../apis/TeamApi';
+import { Team } from '../../entities/Team';
 
 interface Props {
-    playerApi: PlayerApi;
-    render: (players: Player[]) => {};
+    teamApi: TeamApi;
+    render: (teams: Team[]) => {};
 }
 
 interface State {
     loadingFailed: boolean;
-    players?: Player[];
+    teams?: Team[];
 }
 
-export class PlayerContainer extends React.Component<Props, State> {
+export class AllTeamsContainer extends React.Component<Props, State> {
     static propTypes = {
-        playerApi: PropTypes.object.isRequired,
+        teamApi: PropTypes.object.isRequired,
         render: PropTypes.func.isRequired
     };
 
@@ -27,10 +27,10 @@ export class PlayerContainer extends React.Component<Props, State> {
         };
     }
 
-    componentWillMount() {
-        this.props.playerApi.getAllPlayers().then(
-            (players) => {
-                this.setState({ players });
+    componentDidMount() {
+        this.props.teamApi.getAllTeams().then(
+            (teams) => {
+                this.setState({ teams });
             },
             () => {
                 this.setState({ loadingFailed: true });
@@ -39,8 +39,8 @@ export class PlayerContainer extends React.Component<Props, State> {
     }
 
     render() {
-        if (this.state.players) {
-            return this.props.render(this.state.players);
+        if (this.state.teams) {
+            return this.props.render(this.state.teams);
         }
         if (this.state.loadingFailed) {
             return <div>Loading failed.</div>;
