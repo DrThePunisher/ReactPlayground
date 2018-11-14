@@ -8,8 +8,8 @@ import { dummyPromise } from '../../entities/dummyPromise';
 import { arbitraryPlayer, Player } from '../../entities/Player';
 import { AllPlayersContainer } from '../AllPlayersContainer/AllPlayersContainer';
 
-describe('PlayerContainer', () => {
-    it('should should a loading message', () => {
+describe('AllPlayersContainer', () => {
+    it('should render a loading message', () => {
         const subject = shallowRender({});
         expect(subject.text()).to.contain('Loading...');
     });

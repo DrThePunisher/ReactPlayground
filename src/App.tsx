@@ -6,7 +6,7 @@ import { PlayerApiClient } from './apis/PlayerApi';
 import { TeamApiClient } from './apis/TeamApi';
 import { MainPage } from './pages/MainPage';
 
-class App extends React.Component {
+class App extends React.Component {    
     public render() {
         return (
             <div className="App">
