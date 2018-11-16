@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-
+import { Link, MemoryRouter } from 'react-router-dom';
 import { PlayerApi, stubPlayerApi } from '../apis/PlayerApi';
 import { stubTeamApi, TeamApi } from '../apis/TeamApi';
 import { AllPlayersContainer } from '../components/AllPlayersContainer/AllPlayersContainer';
@@ -98,6 +98,23 @@ describe('MainPage', () => {
                 id: 27,
             });
         });
+
+        it('has a link for each TeamCard', async () => {
+            const getAllTeamsPromise = Promise.resolve([{
+                ...arbitraryTeam(),
+                id: 44,
+            }]);
+            const teamApi = {
+                ...stubTeamApi(),
+                getAllTeams: () => getAllTeamsPromise,
+            };
+            const subject = mountRender({ teamApi });
+            await getAllTeamsPromise;
+            subject.update();
+
+            expect(subject.find(Link)).to.be.present();
+            expect(subject.find(Link)).prop('to', '/team/44');
+        });
     });
 });
 
@@ -114,7 +131,9 @@ function shallowRender(props: OptionalProps) {
 
 function mountRender(props: OptionalProps) {
     return mount(
-        <MainPage {...makeProps(props)} />
+        <MemoryRouter>
+            <MainPage {...makeProps(props)} />
+        </MemoryRouter>
     );
 }
 

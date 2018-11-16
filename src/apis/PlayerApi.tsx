@@ -6,6 +6,7 @@ import { Player } from '../entities/Player';
 export interface PlayerApi {
     getPlayer(id: number): Promise<Player>;
     getAllPlayers(): Promise<Player[]>;
+    getPlayersById(ids: number[]): Promise<Player[]>;
 }
 
 export class PlayerApiClient implements PlayerApi {
@@ -24,11 +25,19 @@ export class PlayerApiClient implements PlayerApi {
         const payload = await this.axios.get('http://localhost:3004/Players');
         return (payload.data);
     }
+
+    async getPlayersById(ids: number[]): Promise<Player[]> {
+        const requestUrl = 'http://localhost:3004/Players?';
+        ids.forEach(id => requestUrl.concat('id=' + id));
+        const payload = await this.axios.get(requestUrl);
+        return (payload.data);
+    }
 }
 
 export function stubPlayerApi(): PlayerApi {
     return {
         getPlayer: () => dummyPromise<Player>(),
         getAllPlayers: () => dummyPromise<Player[]>(),
+        getPlayersById: () => dummyPromise<Player[]>(),
     };
 }

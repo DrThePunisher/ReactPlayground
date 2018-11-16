@@ -2,6 +2,7 @@ import './MainPage.css';
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import { PlayerApi } from '../apis/PlayerApi';
 import { TeamApi } from '../apis/TeamApi';
@@ -31,7 +32,7 @@ const MainPage: React.SFC<Props> = (props) => {
                             (players: Player[]) => {
                                 return players.map((player: Player) => (
                                     <PlayerCard
-                                        key={player.id}
+                                        key={'player-' + player.id}
                                         player={player}
                                     />
                                 ));
@@ -50,10 +51,14 @@ const MainPage: React.SFC<Props> = (props) => {
                         render={
                             (teams: Team[]) => {
                                 return teams.map((team: Team) => (
-                                    <TeamCard
-                                        key={team.id}
-                                        team={team}
-                                    />
+                                    <Link
+                                        key={'team-' + team.id}
+                                        to={'/team/' + team.id}
+                                    >
+                                        <TeamCard
+                                            team={team}
+                                        />
+                                    </Link>
                                 ));
                             }
                         }

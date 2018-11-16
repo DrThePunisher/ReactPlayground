@@ -1,23 +1,31 @@
 import './App.css';
 
 import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import { PlayerApiClient } from './apis/PlayerApi';
 import { TeamApiClient } from './apis/TeamApi';
 import { MainPage } from './pages/MainPage';
 
-class App extends React.Component {    
-    public render() {
+class App extends React.Component {
+    render() {
         return (
             <div className="App">
                 <div className="App-header">
-                    <h1 className="App-title">New Ultimate Site</h1>
+                    <div className="App-title">New Ultimate Site</div>
                 </div>
                 <div className="App-content">
-                    <MainPage 
-                        playerApi={new PlayerApiClient()}
-                        teamApi={new TeamApiClient()}
-                    />
+                    <Switch>
+                        <Route
+                            path="/"
+                            component={() =>
+                                <MainPage
+                                    playerApi={new PlayerApiClient()}
+                                    teamApi={new TeamApiClient()}
+                                />
+                            }
+                        />
+                    </Switch>
                 </div>
             </div>
         );

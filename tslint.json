@@ -7,7 +7,8 @@
     "member-access": false,
     "no-empty": false,
     "semicolon": true,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-console": [false, "log"]
   },
   "linterOptions": {
     "exclude": [
