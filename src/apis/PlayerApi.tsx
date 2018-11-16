@@ -27,8 +27,8 @@ export class PlayerApiClient implements PlayerApi {
     }
 
     async getPlayersById(ids: number[]): Promise<Player[]> {
-        const requestUrl = 'http://localhost:3004/Players?';
-        ids.forEach(id => requestUrl.concat('id=' + id));
+        let requestUrl = 'http://localhost:3004/Players?';
+        ids.forEach(id => requestUrl = requestUrl.concat('id=' + id));
         const payload = await this.axios.get(requestUrl);
         return (payload.data);
     }

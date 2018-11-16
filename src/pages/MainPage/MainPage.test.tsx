@@ -2,14 +2,15 @@ import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import { Link, MemoryRouter } from 'react-router-dom';
-import { PlayerApi, stubPlayerApi } from '../apis/PlayerApi';
-import { stubTeamApi, TeamApi } from '../apis/TeamApi';
-import { AllPlayersContainer } from '../components/AllPlayersContainer/AllPlayersContainer';
-import { AllTeamsContainer } from '../components/AllTeamsContainer/AllTeamsContainer';
-import { PlayerCard } from '../components/PlayerCard/PlayerCard';
-import { TeamCard } from '../components/TeamCard/TeamCard';
-import { arbitraryPlayer } from '../entities/Player';
-import { arbitraryTeam } from '../entities/Team';
+
+import { PlayerApi, stubPlayerApi } from '../../apis/PlayerApi';
+import { stubTeamApi, TeamApi } from '../../apis/TeamApi';
+import { AllPlayersContainer } from '../../components/AllPlayersContainer/AllPlayersContainer';
+import { AllTeamsContainer } from '../../components/AllTeamsContainer/AllTeamsContainer';
+import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
+import { TeamCard } from '../../components/TeamCard/TeamCard';
+import { arbitraryPlayer } from '../../entities/Player';
+import { arbitraryTeam } from '../../entities/Team';
 import { MainPage } from './MainPage';
 
 
@@ -54,6 +55,23 @@ describe('MainPage', () => {
                 ...arbitraryPlayer(),
                 id: 26,
             });
+        });
+
+        it('has a link for every PlayerCard', async () => {
+            const getAllPlayersPromise = Promise.resolve([{
+                ...arbitraryPlayer(),
+                id: 21,
+            }]);
+            const playerApi = {
+                ...stubPlayerApi(),
+                getAllPlayers: () => getAllPlayersPromise,
+            };
+            const subject = mountRender({ playerApi });
+            await getAllPlayersPromise;
+            subject.update();
+
+            expect(subject.find(Link)).to.be.present();
+            expect(subject.find(Link)).prop('to', '/player/21');
         });
     });
 

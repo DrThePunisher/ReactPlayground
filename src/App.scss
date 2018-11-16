@@ -1,12 +1,19 @@
 .App-header {
-    text-align: center;
     background-color: #222;
-    padding: 20px;
+    padding: 12px 24px 12px 24px;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
 }
 
-.App-title {
-    font-size: 1.5rem;
+.App-link {
+    border-bottom: 4px solid #222;
+
+    &.active {
+        border-bottom: 4px solid green;
+        margin-right: 24px;
+    }
 }
 
 .App-content {

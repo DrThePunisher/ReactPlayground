@@ -4,14 +4,14 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PlayerApi } from '../apis/PlayerApi';
-import { TeamApi } from '../apis/TeamApi';
-import { AllPlayersContainer } from '../components/AllPlayersContainer/AllPlayersContainer';
-import { AllTeamsContainer } from '../components/AllTeamsContainer/AllTeamsContainer';
-import { PlayerCard } from '../components/PlayerCard/PlayerCard';
-import { TeamCard } from '../components/TeamCard/TeamCard';
-import { Player } from '../entities/Player';
-import { Team } from '../entities/Team';
+import { PlayerApi } from '../../apis/PlayerApi';
+import { TeamApi } from '../../apis/TeamApi';
+import { AllPlayersContainer } from '../../components/AllPlayersContainer/AllPlayersContainer';
+import { AllTeamsContainer } from '../../components/AllTeamsContainer/AllTeamsContainer';
+import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
+import { TeamCard } from '../../components/TeamCard/TeamCard';
+import { Player } from '../../entities/Player';
+import { Team } from '../../entities/Team';
 
 interface Props {
     playerApi: PlayerApi;
@@ -31,10 +31,14 @@ const MainPage: React.SFC<Props> = (props) => {
                         render={
                             (players: Player[]) => {
                                 return players.map((player: Player) => (
-                                    <PlayerCard
+                                    <Link
                                         key={'player-' + player.id}
-                                        player={player}
-                                    />
+                                        to={'/player/' + player.id}
+                                    >
+                                        <PlayerCard
+                                            player={player}
+                                        />
+                                    </Link>
                                 ));
                             }
                         }
