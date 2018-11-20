@@ -10,17 +10,19 @@ import { PlayerPage } from './pages/PlayerPage/PlayerPage';
 
 describe('App', () => {
     describe('Header', () => {
-        const subject = mountRender();
+        it('renders header links', () => {
+            const subject = mountRender();
 
-        const navLinks = subject.find(NavLink);
-        expect(navLinks.length).to.equal(1);
-        expect(navLinks.at(0)).prop('to', '/');
-        expect(navLinks.at(0)).to.have.className('active');
-    });
+            const navLinks = subject.find(NavLink);
+            expect(navLinks.length).to.equal(1);
+            expect(navLinks.at(0)).prop('to', '/');
+            expect(navLinks.at(0)).to.have.className('active');
+        });
 
-    it('renders a header', () => {
-        const subject = mountRender();
-        expect(subject.find('.App-title').text()).to.equal('New Ultimate Site');
+        it('renders a header', () => {
+            const subject = mountRender();
+            expect(subject.find('.App-title').text()).to.equal('New Ultimate Site');
+        });
     });
 
     describe('Routes', () => {
@@ -42,7 +44,7 @@ describe('App', () => {
 });
 
 function mountRender(route?: string) {
-    const testRoute=[route ? route : '/'];
+    const testRoute = [route ? route : '/'];
     return mount(
         <MemoryRouter initialEntries={testRoute}>
             <App />

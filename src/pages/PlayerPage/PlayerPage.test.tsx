@@ -8,20 +8,41 @@ import { arbitraryPlayer } from '../../entities/Player';
 import { PlayerPage } from './PlayerPage';
 
 describe('PlayerPage', () => {
-    it('renders the first name', async () => {
-        const getPlayersByIdPromise = Promise.resolve([{
-            ...arbitraryPlayer(),
-            firstName: 'Scout',
-        }]);
-        const playerApi = {
-            ...stubPlayerApi(),
-            getPlayersById: () => getPlayersByIdPromise,
-        };
-        const subject = mountRender({ playerApi });
-        await getPlayersByIdPromise;
-        subject.update();
+    describe('Player name', () => {
+        it('renders the first and last name', async () => {
+            const getPlayersByIdPromise = Promise.resolve([{
+                ...arbitraryPlayer(),
+                firstName: 'Scout',
+                lastName: 'Cat',
+            }]);
+            const playerApi = {
+                ...stubPlayerApi(),
+                getPlayersById: () => getPlayersByIdPromise,
+            };
+            const subject = mountRender({ playerApi });
+            await getPlayersByIdPromise;
+            subject.update();
 
-        expect(subject.find('.PlayerPage-name').text()).to.equal('Scout');
+            expect(subject.find('.PlayerPage-name').text()).to.equal('Scout Cat');
+        });
+
+        it('renders a nickname if present', async () => {
+            const getPlayersByIdPromise = Promise.resolve([{
+                ...arbitraryPlayer(),
+                firstName: 'Scout',
+                lastName: 'Cat',
+                nickName: 'Baby',
+            }]);
+            const playerApi = {
+                ...stubPlayerApi(),
+                getPlayersById: () => getPlayersByIdPromise,
+            };
+            const subject = mountRender({ playerApi });
+            await getPlayersByIdPromise;
+            subject.update();
+
+            expect(subject.find('.PlayerPage-name').text()).to.equal('Scout "Baby" Cat');
+        });
     });
 
     it('redirects the user when no player is found', async () => {

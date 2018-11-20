@@ -14,6 +14,13 @@ interface Props {
 }
 
 const PlayerPage: React.SFC<Props> = (props) => {
+    const playerName = (player: Player): string => {
+        if (player.nickName) {
+            return `${player.firstName} "${player.nickName}" ${player.lastName}`;
+        }
+        return `${player.firstName} ${player.lastName}`;
+    };
+
     return (
         <PlayerContainer
             playerIds={[props.playerId]}
@@ -21,14 +28,17 @@ const PlayerPage: React.SFC<Props> = (props) => {
             render={
                 (players: Player[]) => {
                     if (players.length === 1) {
+                        const player = players[0];
                         return (
                             <div className="PlayerPage">
-                                <div className="PlayerPage-name">{players[0].firstName}</div>
+                                <div className="PlayerPage-name">
+                                    {playerName(player)}
+                                </div>
                             </div>
                         );
                     }
                     return (
-                        <Redirect to="/404"/>
+                        <Redirect to="/404" />
                     );
                 }}
         />
