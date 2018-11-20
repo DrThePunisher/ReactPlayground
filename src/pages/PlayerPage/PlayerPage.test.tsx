@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import * as React from 'react';
-import { MemoryRouter, Redirect } from 'react-router';
+import { Redirect, StaticRouter } from 'react-router';
 
 import { PlayerApi, stubPlayerApi } from '../../apis/PlayerApi';
 import { arbitraryPlayer } from '../../entities/Player';
@@ -46,9 +46,9 @@ interface OptionalProps {
 
 function mountRender(props: OptionalProps) {
     return mount(
-        <MemoryRouter>
+        <StaticRouter basename={'/players'} context={{}}>
             <PlayerPage {...makeProps(props)} />
-        </MemoryRouter>
+        </StaticRouter>
     );
 }
 
