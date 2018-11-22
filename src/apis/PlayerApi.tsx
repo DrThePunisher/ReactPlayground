@@ -4,31 +4,27 @@ import { dummyPromise } from '../entities/dummyPromise';
 import { Player } from '../entities/Player';
 
 export interface PlayerApi {
-    getPlayer(id: number): Promise<Player>;
     getAllPlayers(): Promise<Player[]>;
     getPlayersById(ids: number[]): Promise<Player[]>;
 }
 
 export class PlayerApiClient implements PlayerApi {
-    axios: AxiosInstance;
+    axios: any;
+    baseUrl: string;
 
-    constructor() {
-        this.axios = Axios.create();
-    }
-
-    async getPlayer(id: number): Promise<Player> {
-        const payload = await this.axios.get('http://localhost:3004/Players/' + id);
-        return (payload.data);
+    constructor(axios: any, baseUrl: string) {
+        this.axios = axios;
+        this.baseUrl = baseUrl;
     }
 
     async getAllPlayers(): Promise<Player[]> {
-        const payload = await this.axios.get('http://localhost:3004/Players');
+        const payload = await this.axios.get(this.baseUrl + '/Players');
         return (payload.data);
     }
 
     async getPlayersById(ids: number[]): Promise<Player[]> {
-        let requestUrl = 'http://localhost:3004/Players?';
-        ids.forEach(id => requestUrl = requestUrl.concat('id=' + id));
+        let requestUrl = this.baseUrl + '/Players?';
+        requestUrl += ids.map(id => 'id=' + id).join('&');
         const payload = await this.axios.get(requestUrl);
         return (payload.data);
     }
@@ -36,7 +32,6 @@ export class PlayerApiClient implements PlayerApi {
 
 export function stubPlayerApi(): PlayerApi {
     return {
-        getPlayer: () => dummyPromise<Player>(),
         getAllPlayers: () => dummyPromise<Player[]>(),
         getPlayersById: () => dummyPromise<Player[]>(),
     };

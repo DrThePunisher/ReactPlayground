@@ -4,6 +4,8 @@ import * as React from 'react';
 import { MemoryRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+import { stubPlayerApi } from './apis/PlayerApi';
+import { stubTeamApi } from './apis/TeamApi';
 import App from './App';
 import { MainPage } from './pages/MainPage/MainPage';
 import { PlayerPage } from './pages/PlayerPage/PlayerPage';
@@ -47,7 +49,10 @@ function mountRender(route?: string) {
     const testRoute = [route ? route : '/'];
     return mount(
         <MemoryRouter initialEntries={testRoute}>
-            <App />
+            <App
+                playerApi={stubPlayerApi()}
+                teamApi={stubTeamApi()}
+            />
         </MemoryRouter>
     );
 }

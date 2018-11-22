@@ -6,6 +6,7 @@ export interface Player {
     lastName: string;
     nickName?: string;
     gender: string;
+    teamIds: number[];
 }
 export const PlayerShape = PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -13,6 +14,7 @@ export const PlayerShape = PropTypes.shape({
     lastName: PropTypes.string.isRequired,
     nickName: PropTypes.string,
     gender: PropTypes.string.isRequired,
+    teamIds: PropTypes.arrayOf(PropTypes.number).isRequired,
 });
 
 export function arbitraryPlayer(): Player {
@@ -21,5 +23,6 @@ export function arbitraryPlayer(): Player {
         firstName: '',
         lastName: '',
         gender: '',
+        teamIds: []
     };
 }

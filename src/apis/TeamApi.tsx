@@ -5,17 +5,27 @@ import { Team } from '../entities/Team';
 
 export interface TeamApi {
     getAllTeams(): Promise<Team[]>;
+    getTeamsById(ids: number[]): Promise<Team[]>;
 }
 
 export class TeamApiClient implements TeamApi {
-    axios: AxiosInstance;
+    axios: any;
+    baseUrl: string;
 
-    constructor() {
-        this.axios = Axios.create();
+    constructor(axios: any, baseUrl: string) {
+        this.axios = axios;
+        this.baseUrl = baseUrl;
     }
 
     async getAllTeams(): Promise<Team[]> {
-        const payload = await this.axios.get('http://localhost:3004/Teams');
+        const payload = await this.axios.get(this.baseUrl + '/Teams');
+        return (payload.data);
+    }
+
+    async getTeamsById(ids: number[]): Promise<Team[]> {
+        let requestUrl = this.baseUrl + '/Teams?';
+        requestUrl += ids.map(id => 'id=' + id).join('&');
+        const payload = await this.axios.get(requestUrl);
         return (payload.data);
     }
 }
@@ -23,5 +33,6 @@ export class TeamApiClient implements TeamApi {
 export function stubTeamApi(): TeamApi {
     return {
         getAllTeams: () => dummyPromise<Team[]>(),
+        getTeamsById: () => dummyPromise<Team[]>(),
     };
 }

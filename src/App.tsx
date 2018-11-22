@@ -1,16 +1,24 @@
 import './App.css';
 
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { NavLink, Route, Switch } from 'react-router-dom';
 
-import { PlayerApiClient } from './apis/PlayerApi';
-import { TeamApiClient } from './apis/TeamApi';
+import { PlayerApi, PlayerApiClient } from './apis/PlayerApi';
+import { TeamApi, TeamApiClient } from './apis/TeamApi';
 import { MainPage } from './pages/MainPage/MainPage';
 import { PlayerPage } from './pages/PlayerPage/PlayerPage';
 
-class App extends React.Component {
-    playerApiClient = new PlayerApiClient();
-    teamApiClient = new TeamApiClient();
+interface Props {
+    playerApi: PlayerApi;
+    teamApi: TeamApi;
+}
+
+class App extends React.Component<Props> {
+    static propTypes = {
+        playerApi: PropTypes.object.isRequired,
+        teamApi: PropTypes.object.isRequired,
+    };
     
     render() {
         return (
@@ -26,8 +34,8 @@ class App extends React.Component {
                             exact={true}
                             component={() =>
                                 <MainPage
-                                    playerApi={this.playerApiClient}
-                                    teamApi={this.teamApiClient}
+                                    playerApi={this.props.playerApi}
+                                    teamApi={this.props.teamApi}
                                 />
                             }
                         />
@@ -36,7 +44,7 @@ class App extends React.Component {
                             component={({ match }: any) => 
                                 <PlayerPage
                                     playerId={parseInt(match.params.id, 10)}
-                                    playerApi={this.playerApiClient}
+                                    playerApi={this.props.playerApi}
                                 />
                             }
                         />
