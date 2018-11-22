@@ -14,11 +14,11 @@ describe('AllPlayersContainer', () => {
         expect(subject.text()).to.contain('Loading...');
     });
 
-    xit('should render a failure message after an api error', async () => {
-        const getAllPlayersPromise = Promise.reject('test');
+    it('should render a failure message after an api error', async () => {
+        const getAllPlayersPromise = () => Promise.reject('test');
         const playerApi = {
             ...stubPlayerApi(),
-            getAllPlayers: () => getAllPlayersPromise
+            getAllPlayers: getAllPlayersPromise
         };
         const subject = shallowRender({ playerApi });
         await getAllPlayersPromise;

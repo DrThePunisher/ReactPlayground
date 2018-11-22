@@ -44,6 +44,7 @@ class App extends React.Component<Props> {
                                 <PlayerPage
                                     playerId={parseInt(match.params.id, 10)}
                                     playerApi={this.props.playerApi}
+                                    teamApi={this.props.teamApi}
                                 />
                             }
                         />

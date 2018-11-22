@@ -14,11 +14,11 @@ describe('AllTeamsContainer', () => {
         expect(subject.text()).to.contain('Loading...');
     });
 
-    xit('should render a failure message after an api error', async () => {
-        const getAllTeamsPromise = Promise.reject('test');
+    it('should render a failure message after an api error', async () => {
+        const getAllTeamsPromise = () => Promise.reject('test');
         const teamApi = {
             ...stubTeamApi(),
-            getAllTeams: () => getAllTeamsPromise
+            getAllTeams: getAllTeamsPromise
         };
         const subject = shallowRender({ teamApi });
         await getAllTeamsPromise;

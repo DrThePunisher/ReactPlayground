@@ -3,14 +3,19 @@ import './PlayerPage.css';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { PlayerApi, playerApiShape } from '../../apis/PlayerApi';
+import { TeamApi, teamApiShape } from '../../apis/TeamApi';
 import { PlayerContainer } from '../../components/PlayerContainer/PlayerContainer';
+import { TeamContainer } from '../../components/TeamContainer/TeamContainer';
 import { Player } from '../../entities/Player';
+import { Team } from '../../entities/Team';
 
 interface Props {
     playerId: number;
     playerApi: PlayerApi;
+    teamApi: TeamApi;
 }
 
 const PlayerPage: React.SFC<Props> = (props) => {
@@ -19,6 +24,38 @@ const PlayerPage: React.SFC<Props> = (props) => {
             return `${player.firstName} "${player.nickName}" ${player.lastName}`;
         }
         return `${player.firstName} ${player.lastName}`;
+    };
+
+    const maybeRenderTeamList = (player: Player) => {
+        if (player.teamIds.length > 0) {
+            return (
+                <TeamContainer
+                    teamIds={player.teamIds}
+                    teamApi={props.teamApi}
+                    render={
+                        (teams: Team[]) =>
+                            <div className="PlayerPage-teams">
+                                <div className="PlayerPage-teams-title">
+                                    Teams
+                                </div>
+                                <ul>
+                                    {teams.map(team =>
+                                        <li
+                                            key={'teams' + team.id}
+                                        >
+                                            <Link to={'/Teams/' + team.id} >
+                                                {team.name}
+                                            </Link>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+
+                    }
+                />
+            );
+        }
+        return undefined;
     };
 
     return (
@@ -34,6 +71,7 @@ const PlayerPage: React.SFC<Props> = (props) => {
                                 <div className="PlayerPage-name">
                                     {playerName(player)}
                                 </div>
+                                {maybeRenderTeamList(player)}
                             </div>
                         );
                     }
@@ -48,6 +86,7 @@ const PlayerPage: React.SFC<Props> = (props) => {
 PlayerPage.propTypes = {
     playerId: PropTypes.number.isRequired,
     playerApi: playerApiShape.isRequired,
+    teamApi: teamApiShape.isRequired,
 };
 
 export { PlayerPage };

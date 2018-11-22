@@ -1,5 +1,15 @@
 .PlayerPage {
     .PlayerPage-name {
         font-size: 1.5rem;
+        margin-bottom: 24px;
+    }
+
+    .PlayerPage-teams-title {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .PlayerPage-teams li {
+        margin-bottom: 12px;
     }
 }
