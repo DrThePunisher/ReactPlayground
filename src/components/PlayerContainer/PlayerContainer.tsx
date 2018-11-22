@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { PlayerApi } from '../../apis/PlayerApi';
+import { PlayerApi, playerApiShape } from '../../apis/PlayerApi';
 import { Player } from '../../entities/Player';
 
 interface Props {
@@ -18,7 +18,7 @@ interface State {
 export class PlayerContainer extends React.Component<Props, State> {
     static propTypes = {
         playerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-        playerApi: PropTypes.object.isRequired,
+        playerApi: playerApiShape.isRequired,
         render: PropTypes.func.isRequired
     };
 

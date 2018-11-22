@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from 'axios';
+import * as PropTypes from 'prop-types';
 
 import { dummyPromise } from '../entities/dummyPromise';
 import { Team } from '../entities/Team';
@@ -36,3 +36,8 @@ export function stubTeamApi(): TeamApi {
         getTeamsById: () => dummyPromise<Team[]>(),
     };
 }
+
+export const teamApiShape = PropTypes.shape({
+    getAllTeams: PropTypes.func.isRequired,
+    getTeamsById: PropTypes.func.isRequired,
+});

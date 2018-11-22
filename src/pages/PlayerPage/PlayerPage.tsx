@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { Redirect } from 'react-router';
 
-import { PlayerApi } from '../../apis/PlayerApi';
+import { PlayerApi, playerApiShape } from '../../apis/PlayerApi';
 import { PlayerContainer } from '../../components/PlayerContainer/PlayerContainer';
 import { Player } from '../../entities/Player';
 
@@ -47,7 +47,7 @@ const PlayerPage: React.SFC<Props> = (props) => {
 
 PlayerPage.propTypes = {
     playerId: PropTypes.number.isRequired,
-    playerApi: PropTypes.object.isRequired,
+    playerApi: playerApiShape.isRequired,
 };
 
 export { PlayerPage };

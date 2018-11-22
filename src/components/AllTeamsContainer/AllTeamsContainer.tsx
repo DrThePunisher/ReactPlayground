@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { TeamApi } from '../../apis/TeamApi';
+import { TeamApi, teamApiShape } from '../../apis/TeamApi';
 import { Team } from '../../entities/Team';
 
 interface Props {
@@ -16,7 +16,7 @@ interface State {
 
 export class AllTeamsContainer extends React.Component<Props, State> {
     static propTypes = {
-        teamApi: PropTypes.object.isRequired,
+        teamApi: teamApiShape.isRequired,
         render: PropTypes.func.isRequired
     };
 

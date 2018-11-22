@@ -1,11 +1,10 @@
 import './App.css';
 
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { NavLink, Route, Switch } from 'react-router-dom';
 
-import { PlayerApi, PlayerApiClient } from './apis/PlayerApi';
-import { TeamApi, TeamApiClient } from './apis/TeamApi';
+import { PlayerApi, playerApiShape } from './apis/PlayerApi';
+import { TeamApi, teamApiShape } from './apis/TeamApi';
 import { MainPage } from './pages/MainPage/MainPage';
 import { PlayerPage } from './pages/PlayerPage/PlayerPage';
 
@@ -16,8 +15,8 @@ interface Props {
 
 class App extends React.Component<Props> {
     static propTypes = {
-        playerApi: PropTypes.object.isRequired,
-        teamApi: PropTypes.object.isRequired,
+        playerApi: playerApiShape.isRequired,
+        teamApi: teamApiShape.isRequired,
     };
     
     render() {

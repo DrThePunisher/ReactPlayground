@@ -8,6 +8,7 @@ export interface Player {
     gender: string;
     teamIds: number[];
 }
+
 export const PlayerShape = PropTypes.shape({
     id: PropTypes.number.isRequired,
     firstName: PropTypes.string.isRequired,

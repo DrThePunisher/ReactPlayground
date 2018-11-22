@@ -1,11 +1,10 @@
 import './MainPage.css';
 
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PlayerApi } from '../../apis/PlayerApi';
-import { TeamApi } from '../../apis/TeamApi';
+import { PlayerApi, playerApiShape } from '../../apis/PlayerApi';
+import { TeamApi, teamApiShape } from '../../apis/TeamApi';
 import { AllPlayersContainer } from '../../components/AllPlayersContainer/AllPlayersContainer';
 import { AllTeamsContainer } from '../../components/AllTeamsContainer/AllTeamsContainer';
 import { PlayerCard } from '../../components/PlayerCard/PlayerCard';
@@ -74,8 +73,8 @@ const MainPage: React.SFC<Props> = (props) => {
 };
 
 MainPage.propTypes = {
-    playerApi: PropTypes.object.isRequired,
-    teamApi: PropTypes.object.isRequired,
+    playerApi: playerApiShape.isRequired,
+    teamApi: teamApiShape.isRequired,
 };
 
 export { MainPage };

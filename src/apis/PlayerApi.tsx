@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from 'axios';
+import * as PropTypes from 'prop-types';
 
 import { dummyPromise } from '../entities/dummyPromise';
 import { Player } from '../entities/Player';
@@ -36,3 +36,8 @@ export function stubPlayerApi(): PlayerApi {
         getPlayersById: () => dummyPromise<Player[]>(),
     };
 }
+
+export const playerApiShape = PropTypes.shape({
+    getAllPlayers: PropTypes.func.isRequired,
+    getPlayersById: PropTypes.func.isRequired,
+});
